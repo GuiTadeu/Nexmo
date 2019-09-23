@@ -10,28 +10,27 @@ import com.nexmo.client.verify.VerifyResponse;
 import com.nexmo.client.verify.VerifyStatus;
 
 public class Client {
-
-	public static void main(String[] args) throws IOException, NexmoClientException {
+    public static void main(String[] args) throws IOException, NexmoClientException {
 
 		/**
-		 * Criando o Cliente Nexmo
-		 * */
+		* Criando o Cliente Nexmo
+		* */
 		NexmoClient client = new NexmoClient.Builder()
-				.apiKey("INSIRA SUA API KEY")
-				.apiSecret("INSIRA SUA API SECRET")
-				.build();
+			.apiKey("INSIRA SUA API KEY")
+			.apiSecret("INSIRA SUA API SECRET")
+			.build();
 		VerifyClient verifyClient = client.getVerifyClient();
 
 		/**
-		 * Configurando o Telefone (DDI+DDD+TEL), Empresa e
-		 * Tamanho do Token (4-6)
-		 * */
+		* Configurando o Telefone (DDI+DDD+TEL), Empresa e
+		* Tamanho do Token (4-6)
+		* */
 		VerifyRequest request = new VerifyRequest("SEU TELEFONE", "O NOME DA SUA EMPRESA");
 		request.setLength(4);
 
 		/**
-		 * Enviando a mensagem via SMS
-		 * */
+		* Enviando a mensagem via SMS
+		* */
 		VerifyResponse verifyResponse = verifyClient.verify(request);
 
 		System.out.println("Digite o Código Recebido: ");
@@ -42,9 +41,9 @@ public class Client {
 		String requestId = verifyResponse.getRequestId();
 
 		/**
-		 * Checando se o Token digitado pelo usuário é 
-		 * o mesmo enviado por mensagem pela API.
-		 * */
+		* Checando se o Token digitado pelo usuário é 
+		* o mesmo enviado por mensagem pela API.
+		* */
 		CheckResponse checkResponse = verifyClient.check(requestId, code);
 		if (checkResponse.getStatus() == VerifyStatus.OK) {
 			System.out.println("SUCESSO!");
@@ -53,5 +52,5 @@ public class Client {
 		}
 
 		input.close();
-	}
+    }
 }
